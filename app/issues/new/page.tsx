@@ -1,6 +1,7 @@
 "use client";
 
 import ErrorMessage from "@/app/components/ErrorMessage";
+import Spinner from "@/app/components/Spinner";
 import { creatIssueSchema } from "@/app/validationSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -30,6 +31,7 @@ const NewIssuePage = () => {
   });
   const router = useRouter();
   const [error, setError] = useState("");
+  const [isSubmitted, setSubmitted] = useState(false)
 
   return (
     <div className="max-w-xl">
@@ -42,9 +44,11 @@ const NewIssuePage = () => {
         className="space-y-3 max-w-xl"
         onSubmit={handleSubmit(async (data) => {
           try {
+            setSubmitted(true)
             await axios.post("/api/issues", data);
             router.push("/issues");
           } catch (error) {
+            setSubmitted(false)
             router.push("/issues/new");
             setError("An unexpected error occurred.");
           }
@@ -62,7 +66,7 @@ const NewIssuePage = () => {
           )}
         />
         <ErrorMessage>{errors.description?.message}</ErrorMessage>
-        <Button>Submit New Issue</Button>
+        <Button disabled={isSubmitted}>Submit New Issue {isSubmitted && <Spinner />}</Button>
       </form>
     </div>
   );
