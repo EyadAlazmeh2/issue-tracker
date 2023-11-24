@@ -2,6 +2,13 @@ import prisma from "@/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 import { creatIssueSchema } from "../../validationSchema";
 
+export async function GET(request: NextRequest) {
+  const issues = await prisma.issue.findMany()
+  if(!issues)
+    return NextResponse.json({error: "the data is not invalid"}, { status: 400 })
+  return NextResponse.json(issues, { status: 200 })
+}
+
 export async function POST(request: NextRequest) {
   const body = await request.json();
 
