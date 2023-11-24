@@ -1,6 +1,7 @@
 import IssueStatusBadge from "@/app/components/IssueStatusBadge";
 import prisma from "@/prisma/client";
 import { Card, Flex, Heading, Text } from "@radix-ui/themes";
+import delay from "delay";
 import { notFound } from "next/navigation";
 import ReactMarkDown from 'react-markdown'
 
@@ -11,6 +12,8 @@ const IssueDetailPage = async ({ params }: { params: { id: string } }) => {
     },
   });
   if (!issue) notFound();
+
+  await delay(2000)
 
   return (
     <div className="space-y-5">
