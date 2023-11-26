@@ -28,7 +28,7 @@ const IssueDetailPage = async ({ params }: { params: { id: string } }) => {
           <Pencil2Icon className="mr-2" />
           Edit Issue
         </IssueAction>
-        <DeleteIssueButton />
+        <DeleteIssueButton issue={issue} />
       </Box>
     </Grid>
   );
