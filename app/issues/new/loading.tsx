@@ -1,12 +1,8 @@
-import { Skeleton } from '@/app/components'
-import { Box } from '@radix-ui/themes'
+import LoadingIssue from '../_components/LoadingIssue'
 
 const LoadingNewIssuePage = () => {
   return (
-    <Box className="max-w-xl space-y-3">
-        <Skeleton />
-        <Skeleton height='20rem' />
-    </Box>
+    <LoadingIssue />
   )
 }
 
