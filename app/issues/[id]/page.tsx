@@ -1,11 +1,10 @@
 import { IssueAction } from "@/app/components";
 import prisma from "@/prisma/client";
 import { Pencil2Icon } from "@radix-ui/react-icons";
-import { Box, Button, Grid } from "@radix-ui/themes";
+import { Box, Grid } from "@radix-ui/themes";
 import { notFound } from "next/navigation";
-import IssueDetail from "./IssueDetail";
 import DeleteIssueButton from "./DeleteIssueButton";
-
+import IssueDetail from "./IssueDetail";
 
 const IssueDetailPage = async ({ params }: { params: { id: string } }) => {
   const issue = await prisma.issue.findUnique({
@@ -16,7 +15,7 @@ const IssueDetailPage = async ({ params }: { params: { id: string } }) => {
   if (!issue) notFound();
 
   return (
-    <Grid gapY='5' gapX='9' columns={{ initial: "1", md: "3" }}>
+    <Grid gapY="5" gapX="9" columns={{ initial: "1", md: "3" }}>
       <Box className="max-w-full space-y-5 col-span-2">
         <IssueDetail issue={issue} />
       </Box>

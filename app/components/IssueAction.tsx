@@ -9,7 +9,7 @@ interface Props {
   color?: "red";
 }
 
-const IssueAction = ({ href, children, className, color}: Props) => {
+const IssueAction = ({ href, children, className, color }: Props) => {
   return (
     <Button color={color}>
       <Link href={href} className={className}>

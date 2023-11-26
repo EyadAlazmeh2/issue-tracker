@@ -10,15 +10,15 @@ import { useState } from "react";
 const DeleteIssueButton = ({ issue }: { issue: Issue }) => {
   const router = useRouter();
   const [error, setError] = useState(false);
-  const [isDeleting, setDeleting] = useState(false)
+  const [isDeleting, setDeleting] = useState(false);
   const deleteIssue = async () => {
     try {
-      setDeleting(true)
+      setDeleting(true);
       await axios.delete("/api/issues/" + issue.id);
       router.push("/issues/list");
       router.refresh();
     } catch (error) {
-      setDeleting(false)
+      setDeleting(false);
       setError(true);
     }
   };
