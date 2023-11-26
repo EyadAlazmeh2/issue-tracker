@@ -6,11 +6,12 @@ interface Props {
   href: string;
   children: ReactNode;
   className?: string;
+  color?: "red";
 }
 
-const IssueAction = ({ href, children, className }: Props) => {
+const IssueAction = ({ href, children, className, color}: Props) => {
   return (
-    <Button>
+    <Button color={color}>
       <Link href={href} className={className}>
         {children}
       </Link>
