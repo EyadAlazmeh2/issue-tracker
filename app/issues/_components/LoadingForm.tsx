@@ -2,13 +2,13 @@ import { Skeleton } from "@/app/components";
 import { Box } from "@radix-ui/themes";
 import React from "react";
 
-const LoadingIssue = () => {
+const LoadingForm = () => {
   return (
     <Box className="max-w-xl space-y-3">
-      <Skeleton />
+      <Skeleton height="2rem" />
       <Skeleton height="20rem" />
     </Box>
   );
 };
 
-export default LoadingIssue;
+export default LoadingForm;

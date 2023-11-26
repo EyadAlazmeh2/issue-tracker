@@ -2,8 +2,8 @@ import { Table } from "@radix-ui/themes";
 import { Skeleton } from "../components";
 import IssueAction from "../components/IssueAction";
 
-const LoadingIssues = () => {
-  const issues = [1, 2, 3, 4, 5];
+const LoadingIssuesPage = () => {
+  const issues = [1, 2, 3, 4, 5, 6, 7];
   return (
     <div className="space-y-5">
       <IssueAction href="/issues/new">New Issue</IssueAction>
@@ -42,4 +42,4 @@ const LoadingIssues = () => {
   );
 };
 
-export default LoadingIssues;
+export default LoadingIssuesPage;

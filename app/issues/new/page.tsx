@@ -1,10 +1,13 @@
-import React from 'react'
-import IssueForm from '../_components/IssueForm'
+import dynamic from "next/dynamic";
+import LoadingForm from "./loading";
+
+const IssueForm = dynamic(() => import("@/app/issues/_components/IssueForm"), {
+  ssr: false,
+  loading: () => <LoadingForm />,
+});
 
 const NewIssuePage = () => {
-  return (
-    <IssueForm />
-  )
-}
+  return <IssueForm />;
+};
 
-export default NewIssuePage
+export default NewIssuePage;

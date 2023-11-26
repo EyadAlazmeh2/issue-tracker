@@ -1,7 +1,7 @@
-import { IssueAction, IssueStatusBadge } from "@/app/components";
+import { IssueAction } from "@/app/components";
 import prisma from "@/prisma/client";
 import { Pencil2Icon } from "@radix-ui/react-icons";
-import { Box, Card, Flex, Grid, Heading, Text } from "@radix-ui/themes";
+import { Box, Grid } from "@radix-ui/themes";
 import { notFound } from "next/navigation";
 import IssueDetail from "./IssueDetail";
 

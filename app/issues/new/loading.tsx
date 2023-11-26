@@ -1,9 +1,2 @@
-import LoadingIssue from '../_components/LoadingIssue'
-
-const LoadingNewIssuePage = () => {
-  return (
-    <LoadingIssue />
-  )
-}
-
-export default LoadingNewIssuePage
+import LoadingForm from "../_components/LoadingForm";
+export default LoadingForm;
