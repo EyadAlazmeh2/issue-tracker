@@ -19,7 +19,7 @@ const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
 
 type IssueFormData = z.infer<typeof IssueSchema>;
 
-const IssueForm = ({ issue }: { issue?: Issue}) => {
+const IssueForm = ({ issue }: { issue?: Issue }) => {
   const {
     register,
     handleSubmit,
@@ -35,7 +35,8 @@ const IssueForm = ({ issue }: { issue?: Issue}) => {
   const Submit = handleSubmit(async (data) => {
     try {
       setSubmitted(true);
-      await axios.post("/api/issues", data);
+      if (issue) await axios.patch(`/api/issues/${issue.id}`, data);
+      else await axios.post("/api/issues", data);
       router.push("/issues");
     } catch (error) {
       setSubmitted(false);
@@ -53,7 +54,11 @@ const IssueForm = ({ issue }: { issue?: Issue}) => {
       )}
       <form className="space-y-3 max-w-xl" onSubmit={Submit}>
         <TextField.Root>
-          <TextField.Input defaultValue={issue?.title} placeholder="Title" {...register("title")} />
+          <TextField.Input
+            defaultValue={issue?.title}
+            placeholder="Title"
+            {...register("title")}
+          />
         </TextField.Root>
         <ErrorMessage>{errors.title?.message}</ErrorMessage>
         <Controller
@@ -66,7 +71,8 @@ const IssueForm = ({ issue }: { issue?: Issue}) => {
         />
         <ErrorMessage>{errors.description?.message}</ErrorMessage>
         <Button disabled={isSubmitted}>
-          Submit New Issue {isSubmitted && <Spinner />}
+          {issue ? "Update Issue" : "Submit New Issue"}{" "}
+          {isSubmitted && <Spinner />}
         </Button>
       </form>
     </div>
