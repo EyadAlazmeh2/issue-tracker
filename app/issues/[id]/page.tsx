@@ -23,7 +23,7 @@ const IssueDetailPage = async ({ params }: { params: { id: string } }) => {
       <Box className="flex flex-col max-w-fit gap-3">
         <IssueAction
           className="flex items-center"
-          href={`/issues/${issue.id}/edit`}
+          href={`/issues/edit/${issue.id}`}
         >
           <Pencil2Icon className="mr-2" />
           Edit Issue
