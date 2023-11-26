@@ -4,6 +4,7 @@ import { Pencil2Icon } from "@radix-ui/react-icons";
 import { Box, Button, Grid } from "@radix-ui/themes";
 import { notFound } from "next/navigation";
 import IssueDetail from "./IssueDetail";
+import DeleteIssueButton from "./DeleteIssueButton";
 
 
 const IssueDetailPage = async ({ params }: { params: { id: string } }) => {
@@ -27,9 +28,7 @@ const IssueDetailPage = async ({ params }: { params: { id: string } }) => {
           <Pencil2Icon className="mr-2" />
           Edit Issue
         </IssueAction>
-        <IssueAction href="" color="red">
-          Delete Issue
-        </IssueAction>
+        <DeleteIssueButton />
       </Box>
     </Grid>
   );
