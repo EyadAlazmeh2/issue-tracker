@@ -2,10 +2,18 @@ import { Button } from "@radix-ui/themes";
 import Link from "next/link";
 import { ReactNode } from "react";
 
-const IssueAction = ({ href, children, className }: { href: string, children: ReactNode, className?: string}) => {
+interface Props {
+  href: string;
+  children: ReactNode;
+  className?: string;
+}
+
+const IssueAction = ({ href, children, className }: Props) => {
   return (
-    <Button >
-      <Link href={href} className={className}>{children}</Link>
+    <Button>
+      <Link href={href} className={className}>
+        {children}
+      </Link>
     </Button>
   );
 };

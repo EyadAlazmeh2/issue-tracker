@@ -3,7 +3,8 @@ import prisma from "@/prisma/client";
 import { Pencil2Icon } from "@radix-ui/react-icons";
 import { Box, Card, Flex, Grid, Heading, Text } from "@radix-ui/themes";
 import { notFound } from "next/navigation";
-import ReactMarkDown from "react-markdown";
+import IssueDetail from "./IssueDetail";
+
 
 const IssueDetailPage = async ({ params }: { params: { id: string } }) => {
   const issue = await prisma.issue.findUnique({
@@ -16,14 +17,7 @@ const IssueDetailPage = async ({ params }: { params: { id: string } }) => {
   return (
     <Grid gap="5" columns={{ initial: "1", md: "2" }}>
       <Box className="space-y-5">
-        <Heading>{issue?.title}</Heading>
-        <Flex gap="3" my="2">
-          <IssueStatusBadge status={issue.status} />
-          <Text>{issue.createdAt.toDateString()}</Text>
-        </Flex>
-        <Card className="prose">
-          <ReactMarkDown>{issue?.description}</ReactMarkDown>
-        </Card>
+        <IssueDetail issue={issue} />
       </Box>
       <Box>
         <IssueAction
