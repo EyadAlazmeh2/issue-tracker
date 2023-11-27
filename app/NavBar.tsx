@@ -8,64 +8,79 @@ import { usePathname } from "next/navigation";
 import { AiFillBug } from "react-icons/ai";
 
 const NavBar = () => {
-  const current = usePathname();
-  const { status, data: session } = useSession();
-
-  const links = [
-    { label: "Dashbored", href: "/" },
-    { label: "Issues", href: "/issues/list" },
-  ];
   return (
     <nav className="flex space-x-6 mb-5 h-14 px-5 border-b items-center justify-between">
       <Flex align="center" gap="5">
         <Link href="/">
           <AiFillBug />
         </Link>
-        <ul className="flex space-x-6">
-          {links.map((link) => (
-            <li key={link.href}>
-              <Link
-                href={link.href}
-                className={classNames({
-                  "text-zinc-900": current === link.href,
-                  "text-zinc-500": current !== link.href,
-                  "hover:text-zinc-800 transition-colors": true,
-                })}
-              >
-                {link.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <NavLinks />
       </Flex>
-      <Box>
-        {status === "authenticated" && (
-          <DropdownMenu.Root>
-            <DropdownMenu.Trigger>
-              <Avatar
-                className="cursor-pointer"
-                src={session?.user?.image!}
-                size="2"
-                radius="full"
-                fallback="?"
-                referrerPolicy="no-referrer"
-              />
-            </DropdownMenu.Trigger>
-            <DropdownMenu.Content>
-              <DropdownMenu.Label>{session?.user?.email}</DropdownMenu.Label>
-              <DropdownMenu.Item>
-                <Link href={"/api/auth/signout"} className="cursor-pointer">
-                  Log out
-                </Link>
-              </DropdownMenu.Item>
-            </DropdownMenu.Content>
-          </DropdownMenu.Root>
-        )}
-        {status === "unauthenticated" && (
-          <Link href={"/api/auth/signin"}>Login</Link>
-        )}
-      </Box>
+      <AuthStatus />
     </nav>
+  );
+};
+
+const NavLinks = () => {
+  const current = usePathname();
+
+  const links = [
+    { label: "Dashbored", href: "/" },
+    { label: "Issues", href: "/issues/list" },
+  ];
+
+  return (
+    <ul className="flex space-x-6">
+      {links.map((link) => (
+        <li key={link.href}>
+          <Link
+            href={link.href}
+            className={classNames({
+              "nav-link": true,
+              "!text-zinc-900": current === link.href,
+            })}
+          >
+            {link.label}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  );
+};
+
+const AuthStatus = () => {
+  const { status, data: session } = useSession();
+
+  if(status === "loading") return null;
+
+  if(status === "unauthenticated")
+    return <Link href={"/api/auth/signin"} className="nav-link">Login</Link>
+
+  return (
+    <Box>
+      {status === "authenticated" && (
+        <DropdownMenu.Root>
+          <DropdownMenu.Trigger>
+            <Avatar
+              className="cursor-pointer"
+              src={session?.user?.image!}
+              size="2"
+              radius="full"
+              fallback="?"
+              referrerPolicy="no-referrer"
+            />
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Content>
+            <DropdownMenu.Label>{session?.user?.email}</DropdownMenu.Label>
+            <DropdownMenu.Item>
+              <Link href={"/api/auth/signout"} className="cursor-pointer">
+                Log out
+              </Link>
+            </DropdownMenu.Item>
+          </DropdownMenu.Content>
+        </DropdownMenu.Root>
+      )}
+    </Box>
   );
 };
 
