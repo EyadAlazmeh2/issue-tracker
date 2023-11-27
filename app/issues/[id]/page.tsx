@@ -5,8 +5,12 @@ import { Box, Grid } from "@radix-ui/themes";
 import { notFound } from "next/navigation";
 import DeleteIssueButton from "./DeleteIssueButton";
 import IssueDetail from "./IssueDetail";
+import { getServerSession } from "next-auth";
+import authOptions from "@/app/auth/authOptions";
 
 const IssueDetailPage = async ({ params }: { params: { id: string } }) => {
+  const session = await getServerSession(authOptions);
+
   const issue = await prisma.issue.findUnique({
     where: {
       id: +params.id,
@@ -19,16 +23,18 @@ const IssueDetailPage = async ({ params }: { params: { id: string } }) => {
       <Box className="max-w-full space-y-5 col-span-2">
         <IssueDetail issue={issue} />
       </Box>
-      <Box className="flex flex-col max-w-fit gap-3">
-        <IssueAction
-          className="flex items-center"
-          href={`/issues/edit/${issue.id}`}
-        >
-          <Pencil2Icon className="mr-2" />
-          Edit Issue
-        </IssueAction>
-        <DeleteIssueButton issue={issue} />
-      </Box>
+      {session && (
+        <Box className="flex flex-col max-w-fit gap-3">
+          <IssueAction
+            className="flex items-center"
+            href={`/issues/edit/${issue.id}`}
+          >
+            <Pencil2Icon className="mr-2" />
+            Edit Issue
+          </IssueAction>
+          <DeleteIssueButton issue={issue} />
+        </Box>
+      )}
     </Grid>
   );
 };
