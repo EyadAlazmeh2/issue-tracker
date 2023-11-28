@@ -1,12 +1,16 @@
 import prisma from "@/prisma/client";
-import { Table } from "@radix-ui/themes";
+import { Box, Flex, Table } from "@radix-ui/themes";
 import { IssueAction, IssueStatusBadge, Link } from "../../components";
+import IssueStatusFilter from "./IssueStatusFilter";
 
 const IssuesPage = async () => {
   const issues = await prisma.issue.findMany();
   return (
     <div className="space-y-5">
-      <IssueAction href="/issues/new">New Issue</IssueAction>
+      <Flex justify='between' >
+        <IssueStatusFilter />
+        <IssueAction href="/issues/new">New Issue</IssueAction>
+      </Flex>
       <Table.Root variant="surface">
         <Table.Header>
           <Table.Row>
