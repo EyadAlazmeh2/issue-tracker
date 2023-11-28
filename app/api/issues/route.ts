@@ -1,13 +1,13 @@
-import prisma from "@/prisma/client";
-import { NextRequest, NextResponse } from "next/server";
-import { IssueSchema } from "../../validationSchema";
-import { getServerSession } from "next-auth";
 import authOptions from "@/app/auth/authOptions";
+import prisma from "@/prisma/client";
+import { getServerSession } from "next-auth";
+import { NextRequest, NextResponse } from "next/server";
+import { PatchIssueSchema } from "../../validationSchema";
 
 export async function GET(request: NextRequest) {
   const session = getServerSession(authOptions);
   if (!session) return NextResponse.json({}, { status: 401 });
-  
+
   const issues = await prisma.issue.findMany();
   if (!issues)
     return NextResponse.json(
@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
 
   const body = await request.json();
 
-  const validation = IssueSchema.safeParse(body);
+  const validation = PatchIssueSchema.safeParse(body);
   if (!validation.success)
     return NextResponse.json(validation.error.errors, { status: 400 });
 
