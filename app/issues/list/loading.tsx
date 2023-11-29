@@ -6,7 +6,7 @@ const LoadingIssuesPage = () => {
   const issues = [1, 2, 3, 4, 5, 6, 7];
   return (
     <div className="space-y-5">
-      <IssueAction href="/issues/new">New Issue</IssueAction>
+      <IssueAction />
       <Table.Root variant="surface">
         <Table.Header>
           <Table.Row>

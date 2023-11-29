@@ -1,21 +1,15 @@
-import { Button } from "@radix-ui/themes";
+import { Button, Flex } from "@radix-ui/themes";
 import Link from "next/link";
-import { ReactNode } from "react";
+import IssueStatusFilter from "../issues/list/IssueStatusFilter";
 
-interface Props {
-  href: string;
-  children: ReactNode;
-  className?: string;
-  color?: "red";
-}
-
-const IssueAction = ({ href, children, className, color }: Props) => {
+const IssueAction = () => {
   return (
-    <Button color={color}>
-      <Link href={href} className={className}>
-        {children}
-      </Link>
-    </Button>
+    <Flex justify="between">
+      <IssueStatusFilter />
+      <Button>
+        <Link href="/issues/new">New Issue</Link>
+      </Button>
+    </Flex>
   );
 };
 

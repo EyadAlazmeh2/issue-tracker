@@ -1,13 +1,12 @@
-import { IssueAction } from "@/app/components";
-import prisma from "@/prisma/client";
-import { Pencil2Icon } from "@radix-ui/react-icons";
-import { Box, Grid } from "@radix-ui/themes";
-import { notFound } from "next/navigation";
-import DeleteIssueButton from "./DeleteIssueButton";
-import IssueDetail from "./IssueDetail";
-import { getServerSession } from "next-auth";
 import authOptions from "@/app/auth/authOptions";
+import prisma from "@/prisma/client";
+import { Box, Grid } from "@radix-ui/themes";
+import { getServerSession } from "next-auth";
+import { notFound } from "next/navigation";
 import AssigneeSelect from "./AssigneeSelect";
+import DeleteIssueButton from "./DeleteIssueButton";
+import EditIssueButton from "./EditIssueButton";
+import IssueDetail from "./IssueDetail";
 
 const IssueDetailPage = async ({ params }: { params: { id: string } }) => {
   const session = await getServerSession(authOptions);
@@ -20,20 +19,14 @@ const IssueDetailPage = async ({ params }: { params: { id: string } }) => {
   if (!issue) notFound();
 
   return (
-    <Grid gapY="5" gapX="9" columns={{ initial: "1", md: "3" }}>
-      <Box className="max-w-full space-y-5 col-span-2">
+    <Grid gapY="5" gapX="5" columns={{ initial: "1", md: "5" }}>
+      <Box className="max-w-full space-y-5 col-span-4">
         <IssueDetail issue={issue} />
       </Box>
       {session && (
-        <Box className="flex flex-col w-36 gap-3">
+        <Box className="flex flex-col max-w-full gap-3">
           <AssigneeSelect issue={issue} />
-          <IssueAction
-            className="flex items-center"
-            href={`/issues/edit/${issue.id}`}
-          >
-            <Pencil2Icon className="mr-2" />
-            Edit Issue
-          </IssueAction>
+          <EditIssueButton issue={issue} />
           <DeleteIssueButton issue={issue} />
         </Box>
       )}
